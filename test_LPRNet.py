@@ -34,6 +34,8 @@ def get_parser():
     parser.add_argument('--cuda', default=False, type=bool, help='Use cuda to train model')
     parser.add_argument('--show', default=False, type=bool, help='show test image and its predict result or not.')
     parser.add_argument('--pretrained_model', default='./weights/Final_LPRNet_model.pth', help='pretrained base model')
+    parser.add_argument('--pruned_model', default = './weights/Pruned_LPRNet_model.pth', help= 'pruned model')
+    
 
     args = parser.parse_args()
 
@@ -64,6 +66,9 @@ def test():
     if args.pretrained_model:
         lprnet.load_state_dict(torch.load(args.pretrained_model, map_location = torch.device('cpu')))
         print("load pretrained model successful!")
+    elif args.pruned_model:
+        lprnet.load_state_dict(torch.load(args.pruned_model, map_location = torch.device('cpu')))
+        print('pruned model loaded successfully')
     else:
         print("[Error] Can't found pretrained mode, please check!")
         return False
