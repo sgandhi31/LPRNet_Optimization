@@ -39,6 +39,12 @@ This script tests the quantized LPRNet model and evaluates its accuracy using a 
   - **`show` Function**: Displays images with predicted and target labels using matplotlib.
 
 ---
+Output:
+```
+1. size : 0.5 MB
+2. Accuracy: 78%
+3. Inference Time: 0.027 seconds
+```
 
 ## How to Use
 
