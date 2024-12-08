@@ -58,3 +58,10 @@ This script supports converting the PyTorch model into TVM's Relay IR, extractin
    - Compile the optimized Relay IR model.
    - Benchmark the inference performance of the tuned model.
 
+## Results
+
+```
+Size: 1.91MB
+Test Accuracy: 89.0%
+Inference Time: 0.082 seconds
+```
