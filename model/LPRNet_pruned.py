@@ -3,15 +3,16 @@ import torch.nn as nn
 import torch.nn.utils.prune as prune
 import time
 import copy
-from model.LPRNet import LPRNet
+from LPRNet import LPRNet
 import argparse
 
 def get_parser():
     parser = argparse.ArgumentParser(description='pruned the model')
     parser.add_argument('--pretrained_model', default = 'weights/Final_LPRNet.pth', help = "load the model to prune")
-    parser.add_argument('--pruning_ratio', default = 0.5, help = "set the pruning ratio")
-    parser.add_arguement('--verbose', help = 'get non zero parameters')
-    parser.add_arguement('--save',default = 'unstructured_pruned_LPRNet_model_0.5.pth', help = 'save the pruned model')
+    parser.add_argument('--pruning_ratio', type=float, default = 0.5, help = "set the pruning ratio")
+    parser.add_argument('--verbose', default = False, type = bool, help = 'get non zero parameters')
+    parser.add_argument('--save',default = 'unstructured_pruned_LPRNet_model_0.5.pth', help = 'save the pruned model')
+    return parser.parse_args()
 
 def load_pretrained_model(checkpoint_path):
     lprnet = LPRNet(lpr_max_len=8, phase=False, class_num=68, dropout_rate=0.5)
@@ -50,7 +51,7 @@ def apply_pruning():
   args = get_parser()
   original_model = load_pretrained_model(args.pretrained_model)
   print("LPRNet model loaded successfully!")
-  pruned_model = unstructured_pruning(original_model, args.prune_ratio)
+  pruned_model = unstructured_pruning(original_model, args.pruning_ratio)
   print('model has been pruned')
   original_size = get_model_size(original_model)
   # Remove pruning reparameterization
@@ -59,7 +60,7 @@ def apply_pruning():
         prune.remove(module, "weight")
   if args.verbose:
     # Get pruned model size
-    print(f"Pruned model with ratio {args.prune_ratio}:")
+    print(f"Pruned model with ratio {args.pruning_ratio}:")
     pruned_size = get_model_size(pruned_model)
 
     # Calculate and print the reduction percentage
@@ -69,3 +70,5 @@ def apply_pruning():
   if args.save:
     torch.save(pruned_model.state_dict(), args.save)
 
+if __name__=='__main__':
+  apply_pruning()
