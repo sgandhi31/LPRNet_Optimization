@@ -29,6 +29,7 @@ pip install -r requirements.txt
 ## Project Structure
 
 - **data:** This directory contains test images and data_load helper scripts.
+- **docs:** This directory contains detailed readme files to understand each optimization used here. 
 - **mlc**: This directory contains script to apply TVM's Machine Learning Compilation Optimizations. For more detail refer to [mlc.md](https://github.com/sgandhi31/LPRNet_Optimization/blob/main/docs/MLC.md)
 - **model**: This directory contains scripts to get original model and its pruned as well quantized versions. For more detail refer to [quantize.md](https://github.com/sgandhi31/LPRNet_Optimization/blob/main/docs/PTSQ.md) and [pruned.md](https://github.com/sgandhi31/LPRNet_Optimization/blob/main/docs/pruned.md)
 - **weigths**: Saved pretrained Pytorch models.
